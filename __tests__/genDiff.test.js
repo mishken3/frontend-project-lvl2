@@ -1,5 +1,5 @@
-import changeDetector from '../src/changeDetector.js';
 import * as fs from 'fs';
+import genDiff from '../src/changeDetector.js';
 
 const file1JSON = fs.readFileSync('__fixtures__/file1.json', 'utf-8');
 const file2JSON = fs.readFileSync('__fixtures__/file2.json', 'utf-8');
@@ -15,7 +15,5 @@ const result = `{
 }`;
 
 test('basic work', () => {
-  expect(changeDetector(convertJSON(file1JSON), convertJSON(file2JSON))).toBe(
-    result
-  );
+  expect(genDiff(convertJSON(file1JSON), convertJSON(file2JSON))).toBe(result);
 });

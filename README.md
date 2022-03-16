@@ -11,7 +11,7 @@ This is training JS-project on [Hexlet](https://hexlet.io), app that compares tw
 ### Setup:
 
 ```
-git clone https://github.com/nightlord189/frontend-project-lvl2
+git clone https://github.com/mishken3/frontend-project-lvl2
 npm install
 npm link
 ```

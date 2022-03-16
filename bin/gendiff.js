@@ -1,16 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import * as fs from 'fs';
-import { cwd } from 'process';
-import path from 'path';
 import genDiff from '../src/genDiff.js';
-
-const convertJSON = (filepath) => {
-  const fixPath = path.resolve(cwd(), filepath);
-  const file = fs.readFileSync(fixPath, 'utf-8');
-  const convertedFile = JSON.parse(file);
-  return convertedFile;
-};
+import convertJSON from '../src/convertJSON.js';
 
 const program = new Command();
 program

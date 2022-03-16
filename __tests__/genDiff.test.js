@@ -1,9 +1,8 @@
-import * as fs from 'fs';
 import genDiff from '../src/genDiff.js';
+import convertJSON from '../src/convertJSON.js';
 
-const file1JSON = fs.readFileSync('__fixtures__/file1.json', 'utf-8');
-const file2JSON = fs.readFileSync('__fixtures__/file2.json', 'utf-8');
-const convertJSON = (file) => JSON.parse(file);
+const firstFile = convertJSON('__fixtures__/file1.json');
+const secondFile = convertJSON('__fixtures__/file2.json');
 
 const result = `{
   - follow: false
@@ -15,5 +14,5 @@ const result = `{
 }`;
 
 test('basic work', () => {
-  expect(genDiff(convertJSON(file1JSON), convertJSON(file2JSON))).toBe(result);
+  expect(genDiff(firstFile, secondFile)).toBe(result);
 });

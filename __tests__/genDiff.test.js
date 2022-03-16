@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import genDiff from '../src/changeDetector.js';
+import genDiff from '../src/genDiff.js';
 
 const file1JSON = fs.readFileSync('__fixtures__/file1.json', 'utf-8');
 const file2JSON = fs.readFileSync('__fixtures__/file2.json', 'utf-8');

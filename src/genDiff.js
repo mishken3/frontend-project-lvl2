@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const genDiff = (obj1, obj2) => {
   const uniqSortedKeys = _.sortBy(
-    _.union(Object.keys(obj1), Object.keys(obj2))
+    _.union(Object.keys(obj1), Object.keys(obj2)),
   );
 
   const getDiff = (key) => {
@@ -18,6 +18,8 @@ const genDiff = (obj1, obj2) => {
     if (obj1[key] === obj2[key]) {
       return `    ${key}: ${obj1[key]}`;
     }
+
+    return 'Alternative return for eslint';
   };
 
   const result = uniqSortedKeys.map(getDiff).join('\n');

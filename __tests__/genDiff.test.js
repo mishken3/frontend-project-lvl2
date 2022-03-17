@@ -1,18 +1,16 @@
 import genDiff from '../src/genDiff.js';
-import convertJSON from '../src/convertJSON.js';
+import { convertJSON, convertTXT } from '../src/convertFiles.js';
 
-const firstFile = convertJSON('__fixtures__/file1.json');
-const secondFile = convertJSON('__fixtures__/file2.json');
+let firstFlatJSON;
+let secondFlatJSON;
+let expetedFlatJSON;
 
-const result = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
+beforeAll(() => {
+  firstFlatJSON = convertJSON('flat_json1.json');
+  secondFlatJSON = convertJSON('flat_json2.json');
+  expetedFlatJSON = convertTXT('expected_flat_json.txt');
+});
 
 test('basic work', () => {
-  expect(genDiff(firstFile, secondFile)).toBe(result);
+  expect(genDiff(firstFlatJSON, secondFlatJSON)).toBe(expetedFlatJSON);
 });

@@ -5,7 +5,7 @@ const genDiff = (obj1, obj2) => {
     _.union(Object.keys(obj1), Object.keys(obj2)),
   );
 
-  const getDiff = (key) => {
+  const checkDiff = (key) => {
     if (_.has(obj1, key) && !_.has(obj2, key)) {
       return `  - ${key}: ${obj1[key]}`;
     }
@@ -22,7 +22,7 @@ const genDiff = (obj1, obj2) => {
     return 'Alternative return for eslint';
   };
 
-  const result = uniqSortedKeys.map(getDiff).join('\n');
+  const result = uniqSortedKeys.map(checkDiff).join('\n');
   return `{\n${result}\n}`;
 };
 

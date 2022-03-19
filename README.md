@@ -3,7 +3,8 @@
 [![Actions Status](https://github.com/mishken3/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/mishken3/frontend-project-lvl2/actions)
 [![Actions Status](https://github.com/mishken3/frontend-project-lvl2/actions/workflows/eslint.yml/badge.svg)](https://github.com/mishken3/frontend-project-lvl2/actions/workflows/eslint.yml)
 [![Actions Status](https://github.com/mishken3/frontend-project-lvl2/actions/workflows/json-tests.yml/badge.svg)](https://github.com/mishken3/frontend-project-lvl2/actions/workflows/json-tests.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e1e91b6d96680333ffd7/maintainability)](https://codeclimate.com/github/mishken3/frontend-project-lvl2/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e1e91b6d96680333ffd7/maintainability)](https://codeclimate.com/github/mishken3/frontend-project-lvl2/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e1e91b6d96680333ffd7/test_coverage)](https://codeclimate.com/github/mishken3/frontend-project-lvl2/test_coverage)
 
 ## Description
 

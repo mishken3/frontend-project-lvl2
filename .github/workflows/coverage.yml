@@ -1,4 +1,4 @@
-name: Test coverage CI
+name: Node.js CI
 
 on:
   - push
@@ -11,21 +11,22 @@ jobs:
         node-version: [14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Instal npm deps
-      run: |
-        make install
-    - name: Run linter
-      run: |
-        make lint
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
-      with:
-        coverageCommand: make test-coverage
-        debug: true
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Instal npm deps
+        run: |
+          make install
+      - name: Run linter
+        run: |
+          make lint
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true

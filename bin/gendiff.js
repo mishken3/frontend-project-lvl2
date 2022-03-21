@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import genDiff from '../src/genDiff.js';
-import convertJSON from '../src/convertFiles.js';
+import parser from '../src/parsers.js';
 
 const program = new Command();
 program
@@ -10,7 +10,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .option('-f, --forman <type>', 'output format')
   .action((filepath1, filepath2) => {
-    const result = genDiff(convertJSON(filepath1), convertJSON(filepath2));
+    const result = genDiff(parser(filepath1), parser(filepath2));
     console.log(result);
   });
 

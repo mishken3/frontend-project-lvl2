@@ -15,15 +15,13 @@ const convertYAML = (file) => parse(file);
 const parser = (filepath) => {
   const fixPath = getFixturePath(filepath);
   const file = fs.readFileSync(fixPath, 'utf-8');
-
-  console.log('file ->', file);
   const fileExtension = path.extname(fixPath).toLocaleLowerCase();
-  console.log('fileExtension ->', fileExtension);
 
   switch (fileExtension) {
     case '.json':
       return convertJSON(file);
     case '.yaml':
+    case '.yml':
       return convertYAML(file);
     case '.txt':
       return convertTXT(fixPath);

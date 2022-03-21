@@ -16,7 +16,7 @@ This is training JS-project on [Hexlet](https://hexlet.io), app that compares tw
 
 ```
 git clone https://github.com/mishken3/frontend-project-lvl2
-npm install
+make install
 npm link
 ```
 
@@ -26,22 +26,17 @@ npm link
 gendiff <file1.json> <file2.json>
 ```
 
+### Run tests
+
+```sh
+make test
+```
+
 ### Available files:
 
 ```
 json
-yaml
-ini
-```
-
-### Available formats:
-
-change format by --format option. Available formats:
-
-```
-stylish
-json
-plain
+yaml & yml
 ```
 
 ## Feature demos
@@ -49,3 +44,7 @@ plain
 ### JSON flat comparison:
 
 [![asciicast](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ.svg)](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ)
+
+### YAML flat comparison:
+
+[![asciicast](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9.svg)](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9)

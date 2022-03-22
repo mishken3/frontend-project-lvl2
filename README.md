@@ -45,6 +45,6 @@ yaml & yml
 
 [![asciicast](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ.svg)](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ)
 
-### YAML flat comparison:
+### YAML&YML flat comparison:
 
 [![asciicast](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9.svg)](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9)

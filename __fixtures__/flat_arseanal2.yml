@@ -1,0 +1,21 @@
+team: Arsenal London
+city: London
+captain: Alexandre Lacazette
+coach: Mikel Arteta
+# famous people:
+#   - Thierry Henry
+#   - Dennis Bergkamp
+#   - Patrick Vieira
+#   - Arsen Venger
+#   - Unai Emery
+famous people:
+  [
+    'Thierry Henry',
+    'Dennis Bergkamp',
+    'Patrick Vieira',
+    'Arsen Venger',
+    'Unai Emery',
+  ]
+last_season_place: 8
+EPL: 13
+England Cup: 14

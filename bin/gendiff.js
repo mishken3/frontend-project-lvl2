@@ -3,7 +3,6 @@
 
 import { Command } from 'commander';
 import genDiff from '../src/genDiff.js';
-import parser from '../src/parsers.js';
 
 const program = new Command();
 program
@@ -12,7 +11,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .option('-f, --format <type>', 'output format')
   .action((filepath1, filepath2) => {
-    const result = genDiff(parser(filepath1), parser(filepath2));
+    const result = genDiff(filepath1, filepath2);
     console.log(result);
     console.log('Compares two configuration files and shows a difference.');
   });

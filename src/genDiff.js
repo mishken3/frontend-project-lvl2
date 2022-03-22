@@ -1,6 +1,10 @@
 import _ from 'lodash';
+import { parser } from './parsers.js';
 
-const genDiff = (obj1, obj2) => {
+const genDiff = (unParsedobj1, unParsedobj2) => {
+  const obj1 = parser(unParsedobj1);
+  const obj2 = parser(unParsedobj2);
+
   const uniqSortedKeys = _.sortBy(
     _.union(Object.keys(obj1), Object.keys(obj2)),
   );

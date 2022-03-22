@@ -1,24 +1,17 @@
 import genDiff from '../src/genDiff.js';
-import parser from '../src/parsers.js';
+import { readFixtureFile } from '../src/parsers.js';
 
-let firstFlatJSON;
-let secondFlatJSON;
+const firstFlatJSON = 'flat_json1.json';
+const secondFlatJSON = 'flat_json2.json';
+const firstFlatYAML = 'flat_yaml1.yaml';
+const secondFlatYAML = 'flat_yaml2.yaml';
+const firstFlatYML = 'flat_yml1.yml';
+const secondFlatYML = 'flat_yml2.yml';
+
 let expetedFlatResult;
-let firstFlatYAML;
-let secondFlatYAML;
-let firstFlatYML;
-let secondFlatYML;
 
 beforeAll(() => {
-  expetedFlatResult = parser('expected_flat_result.txt');
-
-  firstFlatJSON = parser('flat_json1.json');
-  secondFlatJSON = parser('flat_json2.json');
-
-  firstFlatYAML = parser('flat_yaml1.yaml');
-  secondFlatYAML = parser('flat_yaml2.yaml');
-  firstFlatYML = parser('flat_yml1.yml');
-  secondFlatYML = parser('flat_yml2.yml');
+  expetedFlatResult = readFixtureFile('expected_flat_result.txt');
 });
 
 test('Flat JSON', () => {

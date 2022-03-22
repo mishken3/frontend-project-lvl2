@@ -1,9 +1,16 @@
 import _ from 'lodash';
-import { parser } from './parsers.js';
+import path from 'path';
+import * as fs from 'fs';
+import parser from './parsers.js';
 
-const genDiff = (unParsedobj1, unParsedobj2) => {
-  const obj1 = parser(unParsedobj1);
-  const obj2 = parser(unParsedobj2);
+const getFileFormat = (filepath) => path.extname(filepath).toLocaleLowerCase().split('.')[1];
+
+const genDiff = (filepath1, filepath2) => {
+  const data1 = fs.readFileSync(filepath1, 'utf-8');
+  const data2 = fs.readFileSync(filepath2, 'utf-8');
+
+  const obj1 = parser(data1, getFileFormat(filepath1));
+  const obj2 = parser(data2, getFileFormat(filepath2));
 
   const uniqSortedKeys = _.sortBy(
     _.union(Object.keys(obj1), Object.keys(obj2)),

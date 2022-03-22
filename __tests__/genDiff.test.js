@@ -1,27 +1,48 @@
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 import genDiff from '../src/genDiff.js';
-import { readFixtureFile } from '../src/parsers.js';
 
-const firstFlatJSON = 'flat_json1.json';
-const secondFlatJSON = 'flat_json2.json';
-const firstFlatYAML = 'flat_yaml1.yaml';
-const secondFlatYAML = 'flat_yaml2.yaml';
-const firstFlatYML = 'flat_yml1.yml';
-const secondFlatYML = 'flat_yml2.yml';
+const getFixturePath = (filename) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  return path.join(__dirname, '..', '__fixtures__', filename);
+};
 
-let expetedFlatResult;
+const readFixtureFile = (filepath) => {
+  const fixPath = getFixturePath(filepath);
+  const data = fs.readFileSync(fixPath, 'utf-8');
+  return data;
+};
+
+let firstFlatJSON;
+let secondFlatJSON;
+let firstFlatYAML;
+let secondFlatYAML;
+let firstFlatYML;
+let secondFlatYML;
+
+let expectedFlatResult;
 
 beforeAll(() => {
-  expetedFlatResult = readFixtureFile('expected_flat_result.txt');
+  expectedFlatResult = readFixtureFile('expected_flat_result.txt');
+
+  firstFlatJSON = getFixturePath('flat_json1.json');
+  secondFlatJSON = getFixturePath('flat_json2.json');
+  firstFlatYAML = getFixturePath('flat_yaml1.yaml');
+  secondFlatYAML = getFixturePath('flat_yaml2.yaml');
+  firstFlatYML = getFixturePath('flat_yml1.yml');
+  secondFlatYML = getFixturePath('flat_yml2.yml');
 });
 
 test('Flat JSON', () => {
-  expect(genDiff(firstFlatJSON, secondFlatJSON)).toBe(expetedFlatResult);
+  expect(genDiff(firstFlatJSON, secondFlatJSON)).toBe(expectedFlatResult);
 });
 
 test('Flat YAML', () => {
-  expect(genDiff(firstFlatYAML, secondFlatYAML)).toBe(expetedFlatResult);
+  expect(genDiff(firstFlatYAML, secondFlatYAML)).toBe(expectedFlatResult);
 });
 
 test('Flat YML', () => {
-  expect(genDiff(firstFlatYML, secondFlatYML)).toBe(expetedFlatResult);
+  expect(genDiff(firstFlatYML, secondFlatYML)).toBe(expectedFlatResult);
 });

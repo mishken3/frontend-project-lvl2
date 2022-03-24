@@ -22,10 +22,15 @@ let secondFlatYAML;
 let firstFlatYML;
 let secondFlatYML;
 
+let firstJSON;
+let secondJSON;
+let expectedResult;
+
 let expectedFlatResult;
 
 beforeAll(() => {
   expectedFlatResult = readFixtureFile('expected_flat_result.txt');
+  expectedResult = readFixtureFile('expected_result.txt');
 
   firstFlatJSON = getFixturePath('flat_json1.json');
   secondFlatJSON = getFixturePath('flat_json2.json');
@@ -33,6 +38,9 @@ beforeAll(() => {
   secondFlatYAML = getFixturePath('flat_yaml2.yaml');
   firstFlatYML = getFixturePath('flat_yml1.yml');
   secondFlatYML = getFixturePath('flat_yml2.yml');
+
+  firstJSON = getFixturePath('file1.json');
+  secondJSON = getFixturePath('file2.json');
 });
 
 test('Flat JSON', () => {
@@ -45,4 +53,8 @@ test('Flat YAML', () => {
 
 test('Flat YML', () => {
   expect(genDiff(firstFlatYML, secondFlatYML)).toBe(expectedFlatResult);
+});
+
+test('nested JSON', () => {
+  expect(genDiff(firstJSON, secondJSON)).toBe(expectedResult);
 });

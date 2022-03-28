@@ -1,4 +1,4 @@
-import { isObject } from './genDiff.js';
+const isObject = (val) => val instanceof Object && !Array.isArray(val) && val !== null;
 
 const stylish = (tree, replacer = ' ', spacesCount = 4) => {
   const iter = (currentValue, depth = 1) => {
@@ -9,7 +9,7 @@ const stylish = (tree, replacer = ' ', spacesCount = 4) => {
 
     const genString = (indent, key, value, sign = '  ') => {
       if (isObject(value)) {
-        const deepIndent = indent + '    ';
+        const deepIndent = `${indent}    `;
         const nestedObj = Object.entries(value)
           .map(([k, v]) => genString(`${deepIndent}`, k, v))
           .join('\n');
@@ -34,8 +34,7 @@ const stylish = (tree, replacer = ' ', spacesCount = 4) => {
           return genString(indentForSing, key, addedValue, '+ ');
         }
         case 'changed': {
-          const { value1: firstObjValue, value2: secondObjValue } =
-            incomeObject;
+          const { value1: firstObjValue, value2: secondObjValue } = incomeObject;
           return [
             `${genString(indentForSing, key, firstObjValue, '- ')}`,
             `${genString(indentForSing, key, secondObjValue, '+ ')}`,

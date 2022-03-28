@@ -3,13 +3,10 @@ import { extname } from 'path';
 import * as fs from 'fs';
 import parser from './parsers.js';
 import stylish from './stylish.js';
-// import stylish from './newNewStylish.js';
 
-const getFileFormat = (filepath) =>
-  extname(filepath).toLocaleLowerCase().split('.')[1];
+const getFileFormat = (filepath) => extname(filepath).toLocaleLowerCase().split('.')[1];
 
-const isObject = (val) =>
-  val instanceof Object && !Array.isArray(val) && val !== null;
+const isObject = (val) => val instanceof Object && !Array.isArray(val) && val !== null;
 
 const buildDiffTree = (obj1, obj2) => {
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
@@ -79,5 +76,4 @@ const genDiff = (filepath1, filepath2) => {
   return result;
 };
 
-export { isObject };
 export default genDiff;

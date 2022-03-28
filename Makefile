@@ -1,7 +1,7 @@
-install: 
+install:
 	npm ci
 
-publish: 
+publish:
 	npm publish --dry-run
 
 lint:
@@ -12,6 +12,9 @@ lint-fix:
 
 test:
 	npm test
+
+test-watch:
+	npm test -- --watch
 
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8

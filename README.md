@@ -48,3 +48,7 @@ yaml & yml
 ### YAML&YML flat comparison:
 
 [![asciicast](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9.svg)](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9)
+
+### Nested JSON comparison:
+
+[![asciicast](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9.svg)](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9)

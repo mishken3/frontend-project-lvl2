@@ -20,6 +20,7 @@ let secondJSON;
 let firstYAML;
 let secondYAML;
 let expectedResult;
+let expectPlainResult;
 
 beforeAll(() => {
   firstJSON = getFixturePath('file1.json');
@@ -28,12 +29,21 @@ beforeAll(() => {
   secondYAML = getFixturePath('file2.yaml');
 
   expectedResult = readFixtureFile('expected_result.txt');
+  expectPlainResult = readFixtureFile('expected_plain_result.txt');
 });
 
-test('nested JSON', () => {
+test('nested stylish JSON', () => {
   expect(genDiff(firstJSON, secondJSON)).toBe(expectedResult);
 });
 
-test('nested YAML', () => {
+test('nested stylish YAML', () => {
   expect(genDiff(firstYAML, secondYAML)).toBe(expectedResult);
+});
+
+test('nested plain JSON', () => {
+  expect(genDiff(firstJSON, secondJSON, 'plain')).toBe(expectPlainResult);
+});
+
+test('nested plain YAML', () => {
+  expect(genDiff(firstYAML, secondYAML, 'plain')).toBe(expectPlainResult);
 });

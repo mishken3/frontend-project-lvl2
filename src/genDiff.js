@@ -1,13 +1,12 @@
 import { extname } from 'path';
 import * as fs from 'fs';
 import parser from './parsers.js';
-import stylish from './stylish.js';
 import buildDiffTree from './buildDiffTree.js';
+import outputFormat from './formatters/index.js';
 
-const getFileFormat = (filepath) =>
-  extname(filepath).toLocaleLowerCase().split('.')[1];
+const getFileFormat = (filepath) => extname(filepath).toLocaleLowerCase().split('.')[1];
 
-function genDiff(filepath1, filepath2, format = 'stylish') {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const data1 = fs.readFileSync(filepath1, 'utf-8');
   const data2 = fs.readFileSync(filepath2, 'utf-8');
   const obj1 = parser(data1, getFileFormat(filepath1));
@@ -15,12 +14,9 @@ function genDiff(filepath1, filepath2, format = 'stylish') {
 
   const diffTree = buildDiffTree(obj1, obj2);
 
-  switch (format) {
-    case 'stylish':
-      return stylish(diffTree);
-    default:
-      throw new Error(`Wrong stylish format. Came: ${format}`);
-  }
-}
+  const result = outputFormat(format, diffTree);
+
+  return result;
+};
 
 export default genDiff;

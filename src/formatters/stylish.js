@@ -1,22 +1,26 @@
 import _ from 'lodash';
 
-const stylish = (tree, replacer = ' ', spacesCount = 4) => {
+const genString = (indent, key, value, sign = '  ') => {
+  // refact at the end
+  if (_.isPlainObject(value)) {
+    const deepIndent = `${indent}    `;
+    const nestedObj = Object.entries(value)
+      .map(([k, v]) => genString(`${deepIndent}`, k, v))
+      .join('\n');
+    return `${indent}${sign}${key}: {\n${nestedObj}\n${`${indent}  `}}`;
+  }
+  return `${indent}${sign}${key}: ${value}`;
+};
+
+const stylish = (tree) => {
+  const replacer = ' ';
+  const spacesCount = 4;
+
   const iter = (currentValue, depth = 1) => {
     const indentSize = spacesCount * depth;
     const currentIndent = replacer.repeat(indentSize);
     const indentForSing = replacer.repeat(indentSize - 2);
     const bracketsIndent = replacer.repeat(indentSize - spacesCount);
-
-    const genString = (indent, key, value, sign = '  ') => {
-      if (_.isPlainObject(value)) {
-        const deepIndent = `${indent}    `;
-        const nestedObj = Object.entries(value)
-          .map(([k, v]) => genString(`${deepIndent}`, k, v))
-          .join('\n');
-        return `${indent}${sign}${key}: {\n${nestedObj}\n${`${indent}  `}}`;
-      }
-      return `${indent}${sign}${key}: ${value}`;
-    };
 
     const buildDiffString = (incomeObject) => {
       const { key, type } = incomeObject;

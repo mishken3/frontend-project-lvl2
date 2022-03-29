@@ -43,6 +43,8 @@ const plain = (tree) => {
         throw new Error('Wrong status income');
     }
   };
+
+  // refact at the end
   const lines = tree
     .flatMap((child) => {
       const result = iter(child);

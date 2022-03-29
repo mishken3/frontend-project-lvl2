@@ -8,7 +8,7 @@
 
 ## Description
 
-This is training JS-project on [Hexlet](https://hexlet.io), app that compares two config files and shows difference
+This is training JS-project on [Hexlet](https://hexlet.io), app that compares two config files and shows difference in different ways. More info you can find below ↓.
 
 ## Getting Started
 
@@ -41,14 +41,18 @@ yaml & yml
 
 ## Feature demos
 
-### JSON flat comparison:
+### Flat JSON comparison:
 
 [![asciicast](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ.svg)](https://asciinema.org/a/omXcH0ixvdBMi9KIqUWVtAxWZ)
 
-### YAML&YML flat comparison:
+### Flat YAML&YML comparison:
 
 [![asciicast](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9.svg)](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9)
 
-### Nested JSON comparison:
+### Nested comparison:
 
 [![asciicast](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9.svg)](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9)
+
+### Plain comparison:
+
+[![asciicast](https://asciinema.org/a/DtvOOXN6PEtUef0PUh9fY808b.svg)](https://asciinema.org/a/DtvOOXN6PEtUef0PUh9fY808b)

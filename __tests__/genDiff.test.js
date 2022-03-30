@@ -15,6 +15,8 @@ const readFixtureFile = (filepath) => {
   return data;
 };
 
+/*
+// Не проходит проверку финальными тестами hexlet, т.к. переиспользую переменные.
 let firstJSON;
 let secondJSON;
 let firstYAML;
@@ -33,6 +35,15 @@ beforeAll(() => {
   expectPlainResult = readFixtureFile('expected_plain_result.txt');
   expectJSONResult = readFixtureFile('expected_json_result.txt');
 });
+*/
+
+const firstJSON = getFixturePath('file1.json');
+const secondJSON = getFixturePath('file2.json');
+const firstYAML = getFixturePath('file1.yaml');
+const secondYAML = getFixturePath('file2.yaml');
+const expectedResult = readFixtureFile('expected_result.txt');
+const expectPlainResult = readFixtureFile('expected_plain_result.txt');
+const expectJSONResult = readFixtureFile('expected_json_result.txt');
 
 test('stylish output-style for nested .JSON files', () => {
   expect(genDiff(firstJSON, secondJSON)).toBe(expectedResult);

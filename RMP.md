@@ -114,3 +114,29 @@ Time:        0.649 s, estimated 1 s
 
 3. Файл parsers
    Подобный импорт: `import { parse as YAMLParse } from 'yaml';` - ok? Или лучше избегать и по стандартному: `import parse from 'yaml';`?
+
+# TODO
+
+## Refactor
+
+1. Тесты
+2. stylish форматтера -- ф-я genString -- поправить нормально отступы
+3. plain форматтеа -- изменить case, когда добавляется unchanged объект и придумать как удалить его из result
+4. Передача аргумента в `bin/gendiff.js`:
+   Сейчас так:
+
+```sh
+.action((filepath1, filepath2, options) => {
+    const result = genDiff(filepath1, filepath2, options.format);
+    console.log(result);
+  });
+```
+
+Было так:
+
+```sh
+.action((filepath1, filepath2, op) => {
+    const result = genDiff(filepath1, filepath2, program.opts().format);
+    console.log(result);
+  });
+```

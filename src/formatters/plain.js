@@ -1,36 +1,32 @@
 import _ from 'lodash';
 
-const getValue = (val) => {
-  if (_.isPlainObject(val)) return '[complex value]';
-  if (typeof val === 'string') return `'${val}'`;
-  return val;
+const getValue = (rawValue) => {
+  if (_.isPlainObject(rawValue)) return '[complex value]';
+  if (typeof rawValue === 'string') return `'${rawValue}'`;
+  return rawValue;
 };
 
 const plain = (tree) => {
   const iter = (property, ancestry = '') => {
     const { key, type } = property;
-
     const newAncestry = ancestry === '' ? key : `${ancestry}.${key}`;
 
     switch (type) {
       case 'nested': {
         const { children } = property;
-        const result = children.map((child) => iter(child, newAncestry));
-        return result;
+        return children.map((child) => iter(child, newAncestry));
       }
       case 'deleted': {
         return `Property '${newAncestry}' was removed`;
       }
       case 'added': {
         const { value: addedValue } = property;
-
         return `Property '${newAncestry}' was added with value: ${getValue(
           addedValue,
         )}`;
       }
       case 'changed': {
         const { value1: firstObjValue, value2: secondObjValue } = property;
-
         return `Property '${newAncestry}' was updated. From ${getValue(
           firstObjValue,
         )} to ${getValue(secondObjValue)}`;

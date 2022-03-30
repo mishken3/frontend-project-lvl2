@@ -12,7 +12,7 @@ function outputFormat(tree, format) {
       return json(tree);
     default:
       throw new Error(
-        `Wrong input format: '${format}' came, but supports only 'stylish' and 'plain' formats.`,
+        `Wrong input format: '${format}' came. \nBut supports only 'stylish', 'plain' and 'json' formats.`,
       );
   }
 }

@@ -49,10 +49,14 @@ yaml & yml
 
 [![asciicast](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9.svg)](https://asciinema.org/a/ZZpHBqbsdPjFg7UrUQ0LYykR9)
 
-### Nested comparison:
+### Nested format comparison:
 
 [![asciicast](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9.svg)](https://asciinema.org/a/HTTgsE1WG7KxFxHAWkqfquxL9)
 
-### Plain comparison:
+### Plain format comparison:
 
 [![asciicast](https://asciinema.org/a/DtvOOXN6PEtUef0PUh9fY808b.svg)](https://asciinema.org/a/DtvOOXN6PEtUef0PUh9fY808b)
+
+### JSON format comparison:
+
+[![asciicast](https://asciinema.org/a/Xo5fD4MiLwHeSdJbioUMhUocw.svg)](https://asciinema.org/a/Xo5fD4MiLwHeSdJbioUMhUocw)

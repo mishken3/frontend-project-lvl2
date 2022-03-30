@@ -1,9 +1,7 @@
 const json = (tree) => {
-  console.log('test from json.js');
+  const result = JSON.stringify(tree);
 
-  console.log(typeof tree);
-
-  return [];
+  return result;
 };
 
 export default json;

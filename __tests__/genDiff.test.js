@@ -21,6 +21,7 @@ let firstYAML;
 let secondYAML;
 let expectedResult;
 let expectPlainResult;
+let expectJSONResult;
 
 beforeAll(() => {
   firstJSON = getFixturePath('file1.json');
@@ -30,20 +31,29 @@ beforeAll(() => {
 
   expectedResult = readFixtureFile('expected_result.txt');
   expectPlainResult = readFixtureFile('expected_plain_result.txt');
+  expectJSONResult = readFixtureFile('expected_json_result.txt');
 });
 
-test('nested stylish JSON', () => {
+test('stylish output-style for nested .JSON files', () => {
   expect(genDiff(firstJSON, secondJSON)).toBe(expectedResult);
 });
 
-test('nested stylish YAML', () => {
+test('stylish output-style for nested .YAML files', () => {
   expect(genDiff(firstYAML, secondYAML)).toBe(expectedResult);
 });
 
-test('nested plain JSON', () => {
+test('plain output-style for nested .JSON files', () => {
   expect(genDiff(firstJSON, secondJSON, 'plain')).toBe(expectPlainResult);
 });
 
-test('nested plain YAML', () => {
+test('plain output-style for nested .YAML files', () => {
   expect(genDiff(firstYAML, secondYAML, 'plain')).toBe(expectPlainResult);
+});
+
+test('json output-style for nested .JSON files', () => {
+  expect(genDiff(firstJSON, secondJSON, 'json')).toBe(expectJSONResult);
+});
+
+test('json output-style for nested .YAML files', () => {
+  expect(genDiff(firstYAML, secondYAML, 'json')).toBe(expectJSONResult);
 });

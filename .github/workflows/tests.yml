@@ -1,7 +1,9 @@
-name: Tests' coverage CI
+name: Tests, eslint and tests coverage
 
 on:
   - push
+  - pull_request
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,12 +19,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Instal npm deps
-        run: |
-          make install
+
+      - name: Install deps
+        run: make install
+
+      - name: Run tests
+        run: make test
+
       - name: Run linter
-        run: |
-          make lint
+        run: make lint
+
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:

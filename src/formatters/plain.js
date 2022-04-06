@@ -1,53 +1,44 @@
 import _ from 'lodash';
 
-const getValue = (rawValue) => {
+const stringify = (rawValue) => {
   if (_.isPlainObject(rawValue)) return '[complex value]';
   if (typeof rawValue === 'string') return `'${rawValue}'`;
   return rawValue;
 };
 
 const plain = (tree) => {
-  const iter = (property, ancestry = '') => {
-    const { key, type } = property;
+  const iter = (node, ancestry = '') => {
+    const { key, type } = node;
     const newAncestry = ancestry === '' ? key : `${ancestry}.${key}`;
 
     switch (type) {
       case 'nested': {
-        const { children } = property;
-        return children.map((child) => iter(child, newAncestry));
+        const { children } = node;
+        return children.flatMap((child) => iter(child, newAncestry));
       }
       case 'deleted': {
         return `Property '${newAncestry}' was removed`;
       }
       case 'added': {
-        const { value: addedValue } = property;
-        return `Property '${newAncestry}' was added with value: ${getValue(
+        const { value: addedValue } = node;
+        return `Property '${newAncestry}' was added with value: ${stringify(
           addedValue,
         )}`;
       }
       case 'changed': {
-        const { value1: firstObjValue, value2: secondObjValue } = property;
-        return `Property '${newAncestry}' was updated. From ${getValue(
+        const { value1: firstObjValue, value2: secondObjValue } = node;
+        return `Property '${newAncestry}' was updated. From ${stringify(
           firstObjValue,
-        )} to ${getValue(secondObjValue)}`;
+        )} to ${stringify(secondObjValue)}`;
       }
       case 'unchanged': {
         return [];
-        // unchanged value doesnt use
       }
       default:
-        throw new Error('Wrong status income');
+        throw new Error(`Wrong status income. ${type} came.`);
     }
   };
-
-  // refact at the end
-  const lines = tree
-    .flatMap((child) => {
-      const result = iter(child);
-      if (Array.isArray(result)) return result.flat(Infinity);
-      return result;
-    })
-    .join('\n');
+  const lines = tree.flatMap((child) => iter(child)).join('\n');
 
   return lines;
 };

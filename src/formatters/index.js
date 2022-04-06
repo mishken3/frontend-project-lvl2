@@ -1,6 +1,5 @@
 import plain from './plain.js';
 import stylish from './stylish.js';
-import json from './json.js';
 
 function outputFormat(tree, format) {
   switch (format) {
@@ -9,7 +8,7 @@ function outputFormat(tree, format) {
     case 'plain':
       return plain(tree);
     case 'json':
-      return json(tree);
+      return JSON.stringify(tree);
     default:
       throw new Error(
         `Wrong input format: '${format}' came. \nBut supports only 'stylish', 'plain' and 'json' formats.`,

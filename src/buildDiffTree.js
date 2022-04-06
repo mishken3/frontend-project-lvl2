@@ -13,40 +13,32 @@ const buildDiffTree = (obj1, obj2) => {
       };
     }
     if (_.has(obj1, key) && !_.has(obj2, key)) {
-      // deleted
       return {
         type: 'deleted',
         key,
         value: obj1[key],
-        // `  - ${key}: ${obj1[key]}`;
       };
     }
     if (!_.has(obj1, key) && _.has(obj2, key)) {
-      // added
       return {
         type: 'added',
         key,
         value: obj2[key],
-        // `  + ${key}: ${obj2[key]}`;
       };
     }
     if (obj1[key] !== obj2[key]) {
-      // changed
       return {
         type: 'changed',
         key,
         value1: obj1[key],
         value2: obj2[key],
-        // `  - ${key}: ${obj1[key]}\n + ${key}: ${obj2[key]}`;
       };
     }
     if (obj1[key] === obj2[key]) {
-      // unchanged
       return {
         type: 'unchanged',
         key,
         value: obj1[key],
-        // `    ${key}: ${obj1[key]}`;
       };
     }
 

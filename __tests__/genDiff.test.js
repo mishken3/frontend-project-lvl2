@@ -16,6 +16,7 @@ const readFixtureFile = (filepath) => {
 };
 
 const fileExtensions = ['json', 'yaml'];
+
 const formatTypes = ['stylish', 'json', 'plain'];
 
 describe.each(formatTypes)('compare', (format) => {

@@ -15,7 +15,9 @@ const readFixtureFile = (filepath) => {
   return data;
 };
 
-const fileExtensions = ['json', 'yaml'];
+// const fileExtensions = ['json', 'yaml'];
+const fileExtensions = ['json']; // clfor refactor stylish.js, delete after
+
 const formatTypes = ['stylish', 'json', 'plain'];
 
 describe.each(formatTypes)('compare', (format) => {

@@ -1,5 +1,5 @@
 import plain from './plain.js';
-import stylish from './stylish.js';
+import stylish from './stylish2.js';
 
 function outputFormat(tree, format) {
   switch (format) {
@@ -11,7 +11,8 @@ function outputFormat(tree, format) {
       return JSON.stringify(tree);
     default:
       throw new Error(
-        `Wrong input format: '${format}' came. \nBut supports only 'stylish', 'plain' and 'json' formats.`,
+        `Wrong input format: '${format}' came.
+        Supports only 'stylish', 'plain' and 'json' formats.`,
       );
   }
 }

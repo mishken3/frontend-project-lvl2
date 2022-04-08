@@ -1,60 +1,46 @@
 import _ from 'lodash';
 
-const genString = (indent, key, value, sign = '  ') => {
-  // refact at the end
+const tagSize = 4;
+const indent = (depth, spacesCount = 2) => ' '.repeat(depth * tagSize - spacesCount);
+
+const stringify = (value, depth) => {
   if (_.isPlainObject(value)) {
-    const deepIndent = `${indent}    `;
-    const nestedObj = Object.entries(value)
-      .map(([k, v]) => genString(`${deepIndent}`, k, v))
-      .join('\n');
-    return `${indent}${sign}${key}: {\n${nestedObj}\n${`${indent}  `}}`;
+    const data = Object.entries(value).map(([key, val]) => `${indent(depth + 1)}  ${key}: ${stringify(val, depth + 1)}`);
+    return ['{', ...data, `${indent(depth, 0)}}`].join('\n');
   }
-  return `${indent}${sign}${key}: ${value}`;
+  return value;
 };
 
 const stylish = (tree) => {
-  const replacer = ' ';
-  const spacesCount = 4;
-
   const iter = (currentValue, depth = 1) => {
-    const indentSize = spacesCount * depth;
-    const currentIndent = replacer.repeat(indentSize);
-    const indentForSing = replacer.repeat(indentSize - 2);
-    const bracketsIndent = replacer.repeat(indentSize - spacesCount);
-
-    const buildDiffString = (incomeObject) => {
-      const { key, type } = incomeObject;
+    const buildDiffString = (node) => {
+      const { key, type } = node;
       switch (type) {
         case 'nested': {
-          const { children } = incomeObject;
-          return genString(currentIndent, key, iter(children, depth + 1), '');
+          const { children } = node;
+          return `${indent(depth)}  ${key}: ${iter(children, depth + 1)}`;
         }
         case 'deleted': {
-          const { value: deletedValue } = incomeObject;
-          return genString(indentForSing, key, deletedValue, '- ');
+          return `${indent(depth)}- ${key}: ${stringify(node.value, depth)}`;
         }
         case 'added': {
-          const { value: addedValue } = incomeObject;
-          return genString(indentForSing, key, addedValue, '+ ');
+          return `${indent(depth)}+ ${key}: ${stringify(node.value, depth)}`;
         }
         case 'changed': {
-          const { value1: firstObjValue, value2: secondObjValue } = incomeObject;
           return [
-            `${genString(indentForSing, key, firstObjValue, '- ')}`,
-            `${genString(indentForSing, key, secondObjValue, '+ ')}`,
+            `${indent(depth)}- ${key}: ${stringify(node.value1, depth)}`,
+            `${indent(depth)}+ ${key}: ${stringify(node.value2, depth)}`,
           ].join('\n');
         }
         case 'unchanged': {
-          const { value: unchangedValue } = incomeObject;
-          return genString(currentIndent, key, unchangedValue, '');
+          return `${indent(depth)}  ${key}: ${stringify(node.value, depth)}`;
         }
         default:
-          throw new Error('Wrong status income');
+          throw new Error(`Unknown node type -- ${type}`);
       }
     };
     const strings = currentValue.map(buildDiffString);
-
-    return ['{', ...strings, `${bracketsIndent}}`].join('\n');
+    return ['{', ...strings, `${indent(depth, tagSize)}}`].join('\n');
   };
 
   return iter(tree, 1);

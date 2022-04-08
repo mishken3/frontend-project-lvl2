@@ -1,5 +1,5 @@
 import plain from './plain.js';
-import stylish from './stylish2.js';
+import stylish from './stylish.js';
 
 function outputFormat(tree, format) {
   switch (format) {

@@ -1,0 +1,34 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "diff files lib",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint ."
+  },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishken3/frontend-project-lvl2.git"
+  },
+  "author": "M",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mishken3/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/mishken3/frontend-project-lvl2#readme",
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "^3.1.0"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}

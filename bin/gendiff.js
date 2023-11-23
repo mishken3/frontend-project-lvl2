@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import gendiff from '../src/cli.js';
+import genDiffCLI from '../src/cli.js';
 
-gendiff.parse(process.argv);
+genDiffCLI.parse(process.argv);

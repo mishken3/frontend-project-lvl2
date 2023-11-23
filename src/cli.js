@@ -18,7 +18,10 @@ program
       ...uniq([...Object.keys(file1), ...Object.keys(file2)]),
     ].sort();
 
-    return compare(keys, file1, file2);
+    const result = compare(keys, file1, file2);
+    console.log('\n', result);
+
+    return result;
   });
 
 // TODO: Needs later

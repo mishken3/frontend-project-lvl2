@@ -6,7 +6,7 @@ export const compareValue = (key, firstObject, secondObject) => {
 
   // Есть во втором НО не в первом
   if (!(key in firstObject)) {
-    return `- ${key}: ${otherValue}`;
+    return `+ ${key}: ${otherValue}`;
   }
   // Есть в обоих И одинаковое
   if (mainValue === otherValue) {

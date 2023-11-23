@@ -1,4 +1,5 @@
 import { DEFAULT_TAB_SPACE } from '../constants.js';
+import uniq from 'lodash/uniq.js';
 
 export const compareValue = (key, firstObject, secondObject) => {
   const mainValue = firstObject[key];
@@ -32,7 +33,10 @@ export const compareValue = (key, firstObject, secondObject) => {
  * Есть во втором НО не в первом
  */
 
-export const compare = (keys, firstObject, secondObject) => {
+export const compare = (firstObject, secondObject) => {
+  const keys = [
+    ...uniq([...Object.keys(firstObject), ...Object.keys(secondObject)]),
+  ].sort();
   const diffStrings = keys.map((key) => {
     const diffValueString = compareValue(key, firstObject, secondObject);
 

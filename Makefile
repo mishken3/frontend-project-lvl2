@@ -10,3 +10,6 @@ lint:
 local-publish:
 	make publish
 	npm link
+
+test:
+	npm test

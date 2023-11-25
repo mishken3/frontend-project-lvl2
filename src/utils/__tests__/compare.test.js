@@ -1,4 +1,4 @@
-import { compare } from '../../utils/compare.js';
+import { compare } from '../compare.js';
 
 const firstObj = {
   host: 'hexlet.io',

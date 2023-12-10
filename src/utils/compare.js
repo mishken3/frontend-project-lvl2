@@ -1,48 +1,57 @@
-import uniq from 'lodash/uniq.js';
-import { DEFAULT_TAB_SPACE } from '../constants.js';
+import _ from 'lodash';
+import { KEY_TYPES } from '../constants.js';
 
-const compareValue = (key, firstObject, secondObject) => {
-  const mainValue = firstObject[key];
-  const otherValue = secondObject[key];
+const compare = (mainObject, secondObject) => {
+  const keys = _.union(
+    Object.keys(mainObject),
+    Object.keys(secondObject),
+  ).sort();
 
-  // Есть во втором НО не в первом
-  if (!(key in firstObject)) {
-    return `+ ${key}: ${otherValue}`;
-  }
-  // Есть в обоих И НЕ одинаковое
-  if (otherValue && mainValue !== otherValue) {
-    const currentData = `- ${key}: ${mainValue}`;
-    const newData = `+ ${key}: ${otherValue}`;
-    return `${currentData}\n${DEFAULT_TAB_SPACE}${newData}`;
-  }
-  // Есть в первом НО не во втором
-  if (key in firstObject && !(key in secondObject)) {
-    return `- ${key}: ${mainValue}`;
-  }
+  const diffAst = keys.map((key) => {
+    const mainValue = mainObject[key];
+    const secondValue = secondObject[key];
 
-  // Есть в обоих И одинаковое
-  return `  ${key}: ${mainValue}`;
-};
+    if (_.isPlainObject(mainValue) && _.isPlainObject(secondValue)) {
+      return {
+        name: key,
+        type: KEY_TYPES.nested,
+        children: compare(mainValue, secondValue),
+      };
+    }
 
-/**
- * Есть в обоих И одинаковое
- * Есть в обоих И НЕ одинаковое
- *
- * Есть в первом НО не во втором
- * Есть во втором НО не в первом
- */
+    if (_.isEqual(mainValue, secondValue)) {
+      return {
+        name: key,
+        type: KEY_TYPES.unchanged,
+        value: mainValue,
+      };
+    }
 
-export const compare = (firstObject, secondObject) => {
-  const keys = [
-    ...uniq([...Object.keys(firstObject), ...Object.keys(secondObject)]),
-  ].sort();
-  const diffStrings = keys.map((key) => {
-    const diffValueString = compareValue(key, firstObject, secondObject);
+    if (!_.has(mainObject, key)) {
+      return {
+        name: key,
+        type: KEY_TYPES.added,
+        newValue: secondValue,
+      };
+    }
 
-    return `${DEFAULT_TAB_SPACE}${diffValueString}`;
+    if (!_.has(secondObject, key)) {
+      return {
+        name: key,
+        type: KEY_TYPES.removed,
+        value: mainValue,
+      };
+    }
+
+    return {
+      name: key,
+      type: KEY_TYPES.changed,
+      value: mainValue,
+      newValue: secondValue,
+    };
   });
 
-  const result = `{\n${diffStrings.join('\n')}\n}`;
-
-  return result;
+  return diffAst;
 };
+
+export { compare };

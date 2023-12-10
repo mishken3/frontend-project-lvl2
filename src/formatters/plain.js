@@ -1,12 +1,5 @@
 import _ from 'lodash';
 import { KEY_TYPES } from '../constants.js';
-/*
-Если новое значение свойства является составным, то пишется [complex value]
-Если свойство вложенное, то отображается весь путь до корня, а не только с учетом родителя, например выше это: common.setting6.ops.
-*/
-
-// acc = array? ['common', 'follow'].join('.');
-// acc = string? iter(node, (`${acc}.${node.name}`));
 
 const isComplexValue = (value) => {
   if (_.isObject(value)) {
@@ -16,14 +9,14 @@ const isComplexValue = (value) => {
   return _.isString(value) ? `'${value}'` : value;
 };
 
-const getResultString = (node, anchor) => {
+const getPlainDiffString = (node, anchor) => {
   const { name, type, value, newValue, children } = node;
   const startingString = `Property '${[...anchor, name].join('.')}' was`;
 
   switch (type) {
     case KEY_TYPES.nested: {
       return children
-        .flatMap((child) => getResultString(child, [...anchor, name]))
+        .flatMap((child) => getPlainDiffString(child, [...anchor, name]))
         .join('\n');
     }
 
@@ -50,5 +43,10 @@ const getResultString = (node, anchor) => {
   }
 };
 
-export const plain = (diffAst) =>
-  diffAst.flatMap((node) => getResultString(node, [])).join('\n');
+export const plain = (diffAst) => {
+  const plainDiffStrings = diffAst.flatMap((node) =>
+    getPlainDiffString(node, []),
+  );
+
+  return plainDiffStrings.join('\n');
+};

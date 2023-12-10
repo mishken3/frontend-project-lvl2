@@ -16,3 +16,13 @@ test('stylish format', () => {
     genDiff(getFixturePath('file1.json'), getFixturePath('file2.json')),
   ).toBe(readFileSync(getFixturePath('stylish.txt'), 'utf-8'));
 });
+
+test('plain format', () => {
+  const result = genDiff(
+    getFixturePath('file1.json'),
+    getFixturePath('file2.json'),
+    'plain',
+  );
+
+  expect(result).toBe(readFileSync(getFixturePath('plain.txt'), 'utf-8'));
+});

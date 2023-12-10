@@ -1,72 +1,76 @@
 import _ from 'lodash';
 import { KEY_TYPES } from '../constants.js';
 
-const ADDED_SING = '+ ';
-const REMOVED_SING = '- ';
-const EMPTY = ' ';
+const ADD_SING = '+';
+const REMOVE_SING = '-';
+const EMPTY_SPACE = ' ';
 
-const stringify = (value, depth) => {
-  if (!_.isObject(value)) {
-    return value;
+const stringify = (data, depth) => {
+  if (!_.isObject(data)) {
+    return data;
   }
 
-  const indents = EMPTY.repeat((depth + 1) * 4);
-  const result = Object.keys(value)
-    .map((key) => `${indents}${key}: ${stringify(value[key], depth + 1)}\n`)
+  const indents = EMPTY_SPACE.repeat((depth + 1) * 4);
+  const stringifiedDataStrings = Object.entries(data)
+    .map(([key, value]) => `${indents}${key}: ${stringify(value, depth + 1)}\n`)
     .join('');
 
-  const bracketIndents = EMPTY.repeat(depth * 4);
+  const bracketIndents = EMPTY_SPACE.repeat(depth * 4);
 
-  return `{\n${result}${bracketIndents}}`;
+  return `{\n${stringifiedDataStrings}${bracketIndents}}`;
 };
 
-const getPrefix = (depth) => EMPTY.repeat(depth);
+const getIndent = (depth) => EMPTY_SPACE.repeat(depth);
 
 const iter = (tree, depth) =>
   tree.map((node) => {
     const { name, type, value, newValue, children } = node;
-    const prefix = getPrefix(depth * 4 + 2);
+    const INDENT = getIndent(depth * 4 + 2);
 
-    if (type === KEY_TYPES.added) {
-      const addedValue = stringify(newValue, depth + 1);
-      const addedResult = `${prefix}${ADDED_SING}${name}: ${addedValue}`;
+    switch (type) {
+      case KEY_TYPES.nested: {
+        const nestedResult = `${INDENT}${EMPTY_SPACE.repeat(
+          2,
+        )}${name}: {\n${iter(children, depth + 1).join(
+          '\n',
+        )}\n${INDENT}${EMPTY_SPACE.repeat(2)}}`;
 
-      return addedResult;
+        return nestedResult;
+      }
+      case KEY_TYPES.added: {
+        const addedValue = stringify(newValue, depth + 1);
+        const addedResult = `${INDENT}${ADD_SING} ${name}: ${addedValue}`;
+
+        return addedResult;
+      }
+      case KEY_TYPES.changed: {
+        const oldValueString = `${INDENT}${REMOVE_SING} ${name}: ${stringify(
+          value,
+          depth + 1,
+        )}`;
+        const newValueString = `${INDENT}${ADD_SING} ${name}: ${stringify(
+          newValue,
+          depth + 1,
+        )}`;
+
+        return `${oldValueString}\n${newValueString}`;
+      }
+      case KEY_TYPES.removed: {
+        const removedValue = stringify(value, depth + 1);
+        return `${INDENT}${REMOVE_SING} ${name}: ${removedValue}`;
+      }
+      case KEY_TYPES.unchanged: {
+        const unchangedValue = stringify(value, depth + 1);
+        return `${INDENT}${EMPTY_SPACE.repeat(2)}${name}: ${unchangedValue}`;
+      }
+
+      default:
+        throw new Error(`No such node type: ${type}`);
     }
-
-    if (type === KEY_TYPES.changed) {
-      const oldValueString = `${prefix}${REMOVED_SING}${name}: ${stringify(
-        value,
-        depth + 1,
-      )}`;
-      const newValueString = `${prefix}${ADDED_SING}${name}: ${stringify(
-        newValue,
-        depth + 1,
-      )}`;
-
-      return `${oldValueString}\n${newValueString}`;
-    }
-
-    if (type === KEY_TYPES.removed) {
-      const removedValue = stringify(value, depth + 1);
-      return `${prefix}${REMOVED_SING}${name}: ${removedValue}`;
-    }
-
-    if (type === KEY_TYPES.unchanged) {
-      const unchangedValue = stringify(value, depth + 1);
-      return `${prefix}${EMPTY.repeat(2)}${name}: ${unchangedValue}`;
-    }
-
-    const nestedResult = `${prefix}${EMPTY.repeat(2)}${name}: {\n${iter(
-      children,
-      depth + 1,
-    ).join('\n')}\n${prefix}${EMPTY.repeat(2)}}`;
-
-    return nestedResult;
   });
 
 export const stylish = (diff) => {
-  const result = iter(diff, 0).join('\n');
+  const resultStrings = iter(diff, 0).join('\n');
 
-  return `{\n${result}\n}`;
+  return `{\n${resultStrings}\n}`;
 };

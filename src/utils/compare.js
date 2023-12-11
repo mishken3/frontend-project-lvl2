@@ -1,11 +1,8 @@
 import _ from 'lodash';
-import { KEY_TYPES } from '../constants.js';
+import KEY_TYPES from '../constants.js';
 
 const compare = (mainObject, secondObject) => {
-  const keys = _.union(
-    Object.keys(mainObject),
-    Object.keys(secondObject),
-  ).sort();
+  const keys = _.sortBy(_.union(Object.keys(mainObject), Object.keys(secondObject)));
 
   const diffAst = keys.map((key) => {
     const mainValue = mainObject[key];
@@ -54,4 +51,4 @@ const compare = (mainObject, secondObject) => {
   return diffAst;
 };
 
-export { compare };
+export default compare;

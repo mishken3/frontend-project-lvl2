@@ -1,1 +1,1 @@
-export const json = (diffAst) => JSON.stringify(diffAst, '', 2);
+export default (diffAst) => JSON.stringify(diffAst, '', 2);

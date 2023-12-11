@@ -5,7 +5,7 @@
     "node": true,
     "jest/globals": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base"],
   "plugins": ["jest"],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -20,8 +20,9 @@
       }
     ],
     "no-console": "off",
-    "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["off"],
+    "implicit-arrow-linebreak": "error",
+    "object-curly-newline": "error",
     "no-underscore-dangle": [2, { "allow": ["__filename", "__dirname"] }]
   }
 }

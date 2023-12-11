@@ -1,4 +1,4 @@
-export const KEY_TYPES = {
+export default {
   nested: 'nested',
   changed: 'changed',
   unchanged: 'unchanged',

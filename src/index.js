@@ -1,5 +1,5 @@
 import parser from './parser/parser.js';
-import { compare } from './utils/compare.js';
+import compare from './utils/compare.js';
 import formatter from './formatters/index.js';
 
 const genDiff = (filepath1, filepath2, formatName) => {

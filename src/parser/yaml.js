@@ -1,9 +1,7 @@
 import yaml from 'js-yaml';
 
-const parseYAML = (file) => {
+export default (file) => {
   const yamlFile = yaml.load(file);
 
   return yamlFile;
 };
-
-export { parseYAML };

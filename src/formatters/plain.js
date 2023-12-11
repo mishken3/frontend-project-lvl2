@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { KEY_TYPES } from '../constants.js';
+import KEY_TYPES from '../constants.js';
 
 const isComplexValue = (value) => {
   if (_.isObject(value)) {
@@ -10,7 +10,9 @@ const isComplexValue = (value) => {
 };
 
 const getPlainDiffString = (node, anchor) => {
-  const { name, type, value, newValue, children } = node;
+  const {
+    name, type, value, newValue, children,
+  } = node;
   const startingString = `Property '${[...anchor, name].join('.')}' was`;
 
   switch (type) {
@@ -43,10 +45,8 @@ const getPlainDiffString = (node, anchor) => {
   }
 };
 
-export const plain = (diffAst) => {
-  const plainDiffStrings = diffAst.flatMap((node) =>
-    getPlainDiffString(node, []),
-  );
+export default (diffAst) => {
+  const plainDiffStrings = diffAst.flatMap((node) => getPlainDiffString(node, []));
 
   return plainDiffStrings.join('\n');
 };

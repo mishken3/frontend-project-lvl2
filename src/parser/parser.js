@@ -2,8 +2,8 @@ import { cwd } from 'node:process';
 import { resolve, extname } from 'node:path';
 import { readFileSync } from 'node:fs';
 
-import { parseJSON } from './json.js';
-import { parseYAML } from './yaml.js';
+import parseJSON from './json.js';
+import parseYAML from './yaml.js';
 
 const isYamlExtension = (extension) => {
   if (extension === 'yml' || extension === 'yaml') {

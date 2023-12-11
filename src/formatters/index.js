@@ -1,6 +1,6 @@
-import { stylish } from './stylish.js';
-import { plain } from './plain.js';
-import { json } from './json.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
+import json from './json.js';
 
 const FORMATTING_TYPES = {
   plain: 'plain',

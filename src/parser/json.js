@@ -1,7 +1,5 @@
-const parseJSON = (file) => {
+export default (file) => {
   const json = JSON.parse(file);
 
   return json;
 };
-
-export { parseJSON };
